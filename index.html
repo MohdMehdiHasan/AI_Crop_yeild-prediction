@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krishi Mitra</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="language-screen" class="screen active">
+        <div class="card">
+             <h2 data-translate-key="appName">Krishi Mitra</h2>
+             <p data-translate-key="selectLanguage">Select Your Language</p>
+            <div class="lang-option" onclick="setLanguageAndScreen('en', 'login-screen')">English</div>
+            <div class="lang-option" onclick="setLanguageAndScreen('hi', 'login-screen')">हिन्दी (Hindi)</div>
+            <div class="lang-option" onclick="setLanguageAndScreen('mr', 'login-screen')">मराठी (Marathi)</div>
+            <div class="lang-option" onclick="setLanguageAndScreen('ta', 'login-screen')">தமிழ் (Tamil)</div>
+            <div class="lang-option" onclick="setLanguageAndScreen('te', 'login-screen')">తెలుగు (Telugu)</div>
+        </div>
+    </div>
+
+    <div id="login-screen" class="screen">
+        <div class="card">
+            <h2 data-translate-key="welcomeToApp">Welcome to Krishi Mitra</h2>
+            <br>
+            
+            <div id="login-form" class="form-state active">
+                <p data-translate-key="signInPrompt">Sign In to your account</p><br>
+                <div class="form-group"><input type="tel" id="login-phone" class="input-field" data-translate-key="phonePlaceholder" placeholder="Phone Number (e.g., 9876543210)"></div>
+                <div class="form-group">
+                     <div id="location-box" onclick="getLocation()" data-translate-key="allowLocation">📍 Allow Location Access</div>
+                     <div id="location-display" style="font-size: 0.9em; color: var(--danger-red); margin-top: 5px; font-weight: 500;"></div>
+                </div>
+                
+                <button class="btn" onclick="handleLogin()" data-translate-key="loginBtn">Login</button>
+                
+                <p style="margin-top: 15px; font-size: 0.9rem; color: var(--text-light);">
+                    <span data-translate-key="newAccountPrompt">New user? </span>
+                    <a href="#" onclick="toggleForm('signup-form')" style="color: var(--primary-green); text-decoration: none; font-weight: 600;">Sign Up</a>
+                </p>
+            </div>
+
+            <div id="signup-form" class="form-state">
+                <p data-translate-key="signUpPrompt">Create a New Account</p><br>
+                <div class="form-group"><input type="text" id="signup-full-name" class="input-field" data-translate-key="fullNamePlaceholder" placeholder="Full Name"></div>
+                <div class="form-group"><input type="tel" id="signup-phone" class="input-field" data-translate-key="phonePlaceholder" placeholder="Phone Number (e.g., 9876543210)"></div>
+                <div class="form-group">
+                    <p style="font-size: 0.9em; color: var(--text-light);" data-translate-key="locationNeeded">Location is needed for weather prediction.</p>
+                     <div id="signup-location-box" onclick="getLocation()" data-translate-key="allowLocation">📍 Allow Location Access</div>
+                     <div id="signup-location-display" style="font-size: 0.9em; color: var(--danger-red); margin-top: 5px; font-weight: 500;"></div>
+                </div>
+
+                <button class="btn" onclick="handleSignUp()" data-translate-key="signUpBtn">Sign Up</button>
+                
+                 <p style="margin-top: 15px; font-size: 0.9rem; color: var(--text-light);">
+                    <span data-translate-key="haveAccountPrompt">Already have an account? </span>
+                    <a href="#" onclick="toggleForm('login-form')" style="color: var(--primary-green); text-decoration: none; font-weight: 600;">Login</a>
+                </p>
+            </div>
+            
+        </div>
+    </div>
+    
+    <div id="dashboard-screen" class="screen">
+        <div class="header-bar">
+            <div>
+                <h2 id="welcome-message"></h2>
+                <p id="dashboard-location"></p>
+            </div>
+            <button id="logout-btn" onclick="logout()" data-translate-key="logoutBtn">Logout</button>
+        </div>
+        <h3 data-translate-key="myFarms">My Farms</h3>
+        <div id="farm-list" class="farm-list"></div>
+        <button class="btn" onclick="showScreen('add-farm-screen')" data-translate-key="addFarmBtn">+ Add New Farm</button>
+    </div>
+
+    <div id="add-farm-screen" class="screen">
+        <h2 data-translate-key="addFarmTitle">Add New Farm</h2><br>
+        <div class="section">
+            <h3 data-translate-key="farmDetails">Farm Details</h3>
+            <div class="form-group">
+                <label for="farm-name" data-translate-key="farmNameLabel">Farm Name</label>
+                <input type="text" id="farm-name" class="input-field" data-translate-key="farmNamePlaceholder" placeholder="My Rabi Crop Farm">
+            </div>
+             <div class="form-group">
+                <label for="sowing-date" data-translate-key="sowingDateLabel">Date of Sowing</label>
+                <input type="date" id="sowing-date" class="input-field">
+            </div>
+        </div>
+        <div class="section">
+            <h3 data-translate-key="cropDetails">Crop Details</h3>
+            <div class="form-group">
+                <label for="soil-type" data-translate-key="soilTypeLabel">Soil Type</label>
+                <select id="soil-type" class="input-field"></select>
+                <div class="npk-values">
+                    <div><label>N (kg/ha)</label><input type="text" id="npk-n" class="input-field" readonly></div>
+                    <div><label>P (kg/ha)</label><input type="text" id="npk-p" class="input-field" readonly></div>
+                    <div><label>K (kg/ha)</label><input type="text" id="npk-k" class="input-field" readonly></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="crop-type" data-translate-key="cropTypeLabel">Crop Type</label>
+                <select id="crop-type" class="input-field"></select>
+            </div>
+            <div class="form-group"><label for="land-area" data-translate-key="landAreaLabel">Land Area (in acres)</label><input type="number" id="land-area" class="input-field" placeholder="0"></div>
+        </div>
+        <button class="btn" onclick="saveAndPredict()" data-translate-key="predictBtn">Predict Yield</button>
+    </div>
+
+    <div id="report-screen" class="screen">
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

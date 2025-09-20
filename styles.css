@@ -1,0 +1,303 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+    --primary-green: #27ae60; 
+    --dark-green: #229954; 
+    --text-dark: #2c3e50;
+    --text-light: #5d6d7e; 
+    --border-color: #d5dbdb; 
+    --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+    --danger-red: #e74c3c;
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Poppins', sans-serif; 
+}
+
+body {
+    color: var(--text-dark); 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    min-height: 100vh;
+    padding: 20px; 
+    /* Placeholder for the background image, ensure it exists relative to the CSS file or use a public URL */
+    background-image: linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)), 
+    url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover; 
+    background-position: center; 
+    background-attachment: fixed;
+}
+
+.screen { 
+    display: none; 
+    width: 100%; 
+    max-width: 500px; 
+}
+
+.screen.active { 
+    display: block; 
+}
+
+.card, .section, .report-section {
+    background: rgba(255, 255, 255, 0.85); 
+    border-radius: 16px; 
+    padding: 30px; 
+    text-align: center;
+    box-shadow: var(--card-shadow); 
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(12px); 
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.form-state { 
+    display: none; 
+    text-align: left; 
+}
+
+.form-state.active { 
+    display: block; 
+}
+
+.lang-option { 
+    background: rgba(255, 255, 255, 0.7); 
+    color: var(--text-dark); 
+    border: 1px solid var(--border-color); 
+    border-radius: 10px; 
+    padding: 15px; 
+    margin-bottom: 10px; 
+    cursor: pointer; 
+    text-align: left; 
+    font-weight: 500; 
+    transition: transform 0.2s ease, box-shadow 0.2s ease; 
+}
+
+.lang-option:hover { 
+    transform: translateY(-2px); 
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1); 
+    border-left: 5px solid var(--primary-green); 
+}
+
+.form-group { 
+    margin-bottom: 20px; 
+    text-align: left; 
+}
+
+.form-group label { 
+    display: block; 
+    font-weight: 500; 
+    margin-bottom: 8px; 
+    color: var(--text-light); 
+}
+
+.input-field { 
+    width: 100%; 
+    padding: 12px 15px; 
+    border: 1px solid var(--border-color); 
+    border-radius: 8px; 
+    font-size: 1rem; 
+    background-color: rgba(255, 255, 255, 0.8); 
+}
+
+.input-field:focus { 
+    outline: none; 
+    border-color: var(--primary-green); 
+    box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.2); 
+}
+
+.input-field[readonly] { 
+    background-color: #ecf0f1; 
+    cursor: not-allowed; 
+}
+
+#location-box, #signup-location-box { 
+    background-color: #eafaf1; 
+    border: 1px solid #a3e4d7; 
+    padding: 12px 15px; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+}
+
+#location-box.filled, #signup-location-box.filled { 
+    border: 1px solid var(--primary-green); 
+    font-weight: 500; 
+}
+
+.header-bar { 
+    background-color: var(--primary-green); 
+    color: white; 
+    padding: 20px; 
+    border-radius: 12px; 
+    margin-bottom: 20px; 
+    text-align: left; 
+    box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3); 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+#logout-btn { 
+    background: var(--danger-red); 
+    border: none; 
+    color: white; 
+    padding: 8px 12px; 
+    border-radius: 6px; 
+    cursor: pointer; 
+    font-size: 0.9rem; 
+    transition: background-color 0.2s; 
+}
+
+#logout-btn:hover { 
+    background: #c0392b; 
+}
+
+.farm-list { 
+    margin: 20px 0; 
+}
+
+.farm-card { 
+    background: #fff; 
+    text-align: left; 
+    padding: 20px; 
+    border-radius: 12px; 
+    margin-bottom: 15px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.07); 
+    border-left: 5px solid var(--primary-green); 
+    cursor: pointer; 
+    transition: transform 0.2s, box-shadow 0.2s; 
+}
+
+.farm-card:hover { 
+    transform: translateY(-3px); 
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1); 
+}
+
+.farm-card-header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 5px; 
+}
+
+.farm-card h4 { 
+    font-size: 1.2rem; 
+    pointer-events: none; 
+}
+
+.farm-card p { 
+    color: var(--text-light); 
+    font-size: 0.9rem; 
+    pointer-events: none; 
+}
+
+.delete-btn { 
+    background-color: var(--danger-red); 
+    color: white; 
+    border: none; 
+    border-radius: 5px; 
+    padding: 5px 10px; 
+    font-size: 0.8rem; 
+    cursor: pointer; 
+    transition: background-color 0.2s; 
+    z-index: 10; 
+}
+
+.delete-btn:hover { 
+    background-color: #c0392b; 
+}
+
+.no-farms { 
+    text-align: center; 
+    padding: 40px; 
+    margin: 20px 0; 
+    border: 2px dashed var(--border-color); 
+    border-radius: 12px; 
+    background-color: rgba(255, 255, 255, 0.5); 
+}
+
+.section, .report-section { 
+    text-align: left; 
+    margin-bottom: 20px; 
+    padding: 20px; 
+}
+
+.section h3, .report-section h3 { 
+    margin-bottom: 15px; 
+    border-bottom: 1px solid var(--border-color); 
+    padding-bottom: 10px; 
+}
+
+.npk-values { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 10px; 
+    margin-top: 15px; 
+}
+
+.predicted-yield { 
+    font-size: 2.5rem; 
+    font-weight: 700; 
+    color: var(--dark-green); 
+}
+
+.issue { 
+    display: flex; 
+    align-items: center; 
+    background: #fef9e7; 
+    border: 1px solid #fdebd0; 
+    padding: 10px; 
+    border-radius: 8px; 
+    margin-top: 15px; 
+    margin-bottom: 10px; 
+}
+
+.recommendation-cards { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 15px; 
+}
+
+.rec-card { 
+    border: 1px solid var(--border-color); 
+    padding: 15px; 
+    border-radius: 10px; 
+    background: #fff; 
+}
+
+.rec-card p { 
+    color: var(--text-light); 
+}
+
+.yield-increase { 
+    background: #e8f5e9; 
+    color: var(--dark-green); 
+    padding: 5px 8px; 
+    border-radius: 5px; 
+    margin-top: 10px; 
+    display: inline-block; 
+    font-size: 0.8rem; 
+    font-weight: 500; 
+}
+
+.btn { 
+    background-color: var(--primary-green); 
+    color: white; 
+    border: none; 
+    padding: 15px 20px; 
+    border-radius: 8px; 
+    font-size: 1rem; 
+    font-weight: 600; 
+    cursor: pointer; 
+    width: 100%; 
+    transition: background-color 0.2s ease, transform 0.2s ease; 
+    margin-top: 10px; 
+}
+
+.btn:hover { 
+    background-color: var(--dark-green); 
+    transform: translateY(-2px); 
+}
